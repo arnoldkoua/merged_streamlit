@@ -1,5 +1,7 @@
 import streamlit as st
 import pandas as pd
+import openpyxl
+from openpyxl import load_workbook
 
 st.set_page_config(page_title="Excel Merger", page_icon=":pencil:")
 
