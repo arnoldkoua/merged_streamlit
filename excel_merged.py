@@ -25,6 +25,23 @@ if uploaded_files:
     for file in uploaded_files:
         st.write(file.name)
 
+# Function to check if a sheet name exists in an Excel file
+def sheet_exists(file_path, sheet_name):
+    try:
+        wb = load_workbook(file_path, read_only=True)
+        return sheet_name in wb.sheetnames
+    except Exception as e:
+        return False
+
+# Check if the specified sheet_name exists in any of the uploaded files
+sheet_name_exists = False
+if sheet_name:
+    for file in uploaded_files:
+        if not sheet_exists(file, sheet_name):
+            st.warning(f"Sheet '{sheet_name}' does not exist in '{file.name}'")
+            sheet_name_exists = True
+            break
+
 # Merge the uploaded files into a single dataframe when the user clicks the button
 if st.button("Merge"):
     if uploaded_files:
