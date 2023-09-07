@@ -34,7 +34,11 @@ if st.button("Merge"):
         all_dataframes = []
         variable_names = None # Initialize variable_names
         for file in uploaded_files:
-            df = pd.read_excel(file)
+            if key_variable == "":
+                df = pd.read_excel(file, sheet_name=sheet_name)
+            else:
+                df = pd.read_excel(file)
+                
             if key_variable == "":
                 if variable_names is None:
                     variable_names = set(df.columns)
