@@ -17,7 +17,7 @@ key_variable = st.text_input("Enter the key variable to use for merging (add var
 if key_variable == "":
     sheet_name = st.text_input("Enter the name of the sheet to merge (if key variable is empty):", "")
 else:
-    sheet_name = None
+    sheet_name = ""
 
 # Allow user to upload files
 uploaded_files = st.file_uploader("Upload Excel files", type=["xls", "xlsx"], accept_multiple_files=True)
@@ -36,7 +36,7 @@ if st.button("Merge"):
         for file in uploaded_files:
             if key_variable == "":
                 df = pd.read_excel(file, sheet_name=sheet_name)
-            elif key_variable == "" and sheet_name is None:
+            elif key_variable == "" and sheet_name == "":
                 df = pd.read_excel(file)
             else:
                 df = pd.read_excel(file)
