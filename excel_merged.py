@@ -13,6 +13,12 @@ st.write("Upload your Excel files below. The files will be merged into a single 
 # Allow user to enter key variable for merging
 key_variable = st.text_input("Enter the key variable to use for merging (add variables):", "")
 
+# Allow the user to enter the sheet name for merging if key_variable is empty
+if key_variable == "":
+    sheet_name = st.text_input("Enter the name of the sheet to merge (if key variable is empty):", "")
+else:
+    sheet_name = None
+
 # Allow user to upload files
 uploaded_files = st.file_uploader("Upload Excel files", type=["xls", "xlsx"], accept_multiple_files=True)
 
