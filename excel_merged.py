@@ -13,11 +13,8 @@ st.write("Upload your Excel files below. The files will be merged into a single 
 # Allow user to enter key variable for merging
 key_variable = st.text_input("Enter the key variable to use for merging (add variables):", "")
 
-# Allow the user to enter the sheet name for merging if key_variable is empty
-if key_variable == "":
-    sheet_name = st.text_input("Enter the name of the sheet to merge (if key variable is empty):", "")
-else:
-    sheet_name = ""
+# Allow user to enter the sheet name for merging
+sheet_name = st.text_input("Enter the name of the sheet to merge (optional):", "")
 
 # Allow user to upload files
 uploaded_files = st.file_uploader("Upload Excel files", type=["xls", "xlsx"], accept_multiple_files=True)
@@ -35,12 +32,14 @@ if st.button("Merge"):
         variable_names = None # Initialize variable_names
         for file in uploaded_files:
             if key_variable == "":
-                df = pd.read_excel(file, sheet_name=sheet_name)
-            elif key_variable == "" and sheet_name == "":
-                df = pd.read_excel(file)
+                if sheet_name == "":
+                    # If both key_variable and sheet_name are empty, use the default active sheet
+                    df = pd.read_excel(file)
+                else:
+                    df = pd.read_excel(file, sheet_name=sheet_name)
             else:
                 df = pd.read_excel(file)
-                
+
             if key_variable == "":
                 if variable_names is None:
                     variable_names = set(df.columns)
