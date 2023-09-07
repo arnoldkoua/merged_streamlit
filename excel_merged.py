@@ -36,6 +36,8 @@ if st.button("Merge"):
         for file in uploaded_files:
             if key_variable == "":
                 df = pd.read_excel(file, sheet_name=sheet_name)
+            elif key_variable == "" and sheet_name = None:
+                df = pd.read_excel(file)
             else:
                 df = pd.read_excel(file)
                 
