@@ -26,7 +26,7 @@ if "token" not in st.session_state:
     with st.container(border=True):
         if st.button("Sign In with Google", use_container_width=True):
             oauth_response = descope_client.oauth.start(
-                provider="google", return_url="https://excelmerged.streamlit.app/"
+                provider="google", return_url="https://excelmerged.streamlit.app/oauth2callback"
             )
             url = oauth_response["url"]
             st.markdown(f'<meta http-equiv="refresh" content="0; url={url}">', unsafe_allow_html=True)
